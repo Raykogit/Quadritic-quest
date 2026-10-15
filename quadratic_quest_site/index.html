@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quadratic Quest</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#667085;--accent:#5b5ce2;--accent2:#7c3aed;--line:#e7e9f2;--good:#16835b;--bad:#d64545}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+header{background:linear-gradient(135deg,#3730a3,#7c3aed);color:white;padding:34px 6%;position:relative;overflow:hidden}
+header:after{content:"x²";position:absolute;right:7%;top:-30px;font-size:180px;font-weight:800;opacity:.08}
+nav{display:flex;justify-content:space-between;align-items:center;max-width:1180px;margin:auto}.logo{font-size:24px;font-weight:800}.badge{background:#ffffff22;border:1px solid #ffffff44;padding:8px 12px;border-radius:999px;font-size:13px}
+.hero{max-width:1180px;margin:42px auto 15px}.hero h1{font-size:46px;line-height:1.05;margin:0 0 12px}.hero p{max-width:680px;font-size:18px;color:#e8e8ff}
+main{max-width:1180px;margin:30px auto;padding:0 20px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}.tab{border:1px solid var(--line);background:white;padding:12px 18px;border-radius:12px;cursor:pointer;font-weight:700}.tab.active{background:var(--accent);color:white;border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:1.35fr .8fr;gap:22px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;box-shadow:0 8px 30px #2538580b}.level{display:none}.level.active{display:block}
+.kicker{color:var(--accent);font-weight:800;text-transform:uppercase;font-size:12px;letter-spacing:.08em}.title{font-size:30px;margin:7px 0 12px}.formula{background:#f0efff;border-radius:14px;padding:18px;font-size:22px;text-align:center;font-weight:700;margin:18px 0}.steps{padding-left:22px;line-height:1.8}.problem{background:#fafafa;border:1px dashed #cfd3e3;border-radius:15px;padding:18px;margin-top:20px}.problem strong{font-size:21px}
+.hint{margin-top:15px;padding:14px;background:#f7f7ff;border-left:4px solid var(--accent);border-radius:8px}.btn{border:0;border-radius:11px;background:var(--accent);color:white;padding:11px 15px;font-weight:700;cursor:pointer;margin-top:12px}.btn.secondary{background:#eef0f8;color:var(--text)}
+.side h3{margin-top:0}.meter{height:10px;background:#eceef5;border-radius:99px;overflow:hidden}.meter span{display:block;height:100%;width:33%;background:linear-gradient(90deg,#5b5ce2,#8b5cf6)}
+.answer{display:flex;gap:10px;margin-top:15px}.answer input{flex:1;padding:12px;border:1px solid #d7dbe8;border-radius:10px;font-size:16px}.feedback{min-height:25px;font-weight:700;margin-top:10px}.good{color:var(--good)}.bad{color:var(--bad)}
+footer{text-align:center;color:var(--muted);padding:35px}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.hero h1{font-size:36px}}
+</style>
+</head>
+<body>
+<header>
+<nav><div class="logo">Quadratic Quest</div><div class="badge">Adaptive Math Learning</div></nav>
+<div class="hero">
+<div class="kicker" style="color:#c7c8ff">Interactive learning experience</div>
+<h1>Master Quadratic Equations</h1>
+<p>Learn the same core concept through three difficulty levels — from guided foundations to real-world critical thinking.</p>
+</div>
+</header>
+
+<main>
+<div class="tabs">
+<button class="tab active" onclick="showLevel(1)">Level 1 · Foundation</button>
+<button class="tab" onclick="showLevel(2)">Level 2 · Standard</button>
+<button class="tab" onclick="showLevel(3)">Level 3 · Advanced</button>
+</div>
+
+<div class="grid">
+<section class="card">
+<div id="level1" class="level active">
+<div class="kicker">Level 1</div><div class="title">Foundation</div>
+<p>Start with factoring and the zero-product property.</p>
+<div class="formula">ax² + bx + c = 0</div>
+<ol class="steps">
+<li>Move all terms to one side.</li><li>Find two numbers with the required product and sum.</li>
+<li>Factor the quadratic.</li><li>Set each factor equal to zero.</li><li>Check both solutions.</li>
+</ol>
+<div class="problem"><strong>Practice: x² − 5x + 6 = 0</strong><p>Find two numbers whose product is 6 and whose sum is −5.</p>
+<button class="btn" onclick="hint(1)">Show Hint</button><div id="hint1" class="hint" style="display:none">Think about the factor pair of 6 that has a negative sum.</div></div>
+</div>
+
+<div id="level2" class="level">
+<div class="kicker">Level 2</div><div class="title">Standard</div>
+<p>Use the quadratic formula when factoring is not convenient.</p>
+<div class="formula">x = (−b ± √(b² − 4ac)) / 2a</div>
+<div class="problem"><strong>Practice: 2x² − 7x + 3 = 0</strong>
+<ol class="steps"><li>Identify a, b, and c.</li><li>Calculate D = b² − 4ac.</li><li>Substitute into the quadratic formula.</li><li>Simplify both ± cases.</li></ol>
+<button class="btn" onclick="hint(2)">Show Hint</button><div id="hint2" class="hint" style="display:none">Start with a = 2, b = −7, c = 3. Calculate the discriminant before doing anything else.</div>
+</div>
+</div>
+
+<div id="level3" class="level">
+<div class="kicker">Level 3</div><div class="title">Advanced</div>
+<p>Apply quadratic equations to a realistic situation and interpret the result.</p>
+<div class="problem"><strong>Garden challenge</strong><p>A rectangular garden has an area of 96 m². Its length is 4 m greater than its width. Determine its dimensions.</p>
+<ol class="steps"><li>Let the width be x.</li><li>Express the length as x + 4.</li><li>Build an equation from the area.</li><li>Solve it and reject any non-physical solution.</li></ol></div>
+<div class="problem"><strong>Critical thinking</strong><p>How can the discriminant tell you whether a real-world quadratic model has zero, one, or two real solutions?</p></div>
+</div>
+</section>
+
+<aside class="card side">
+<h3>Your learning path</h3>
+<p style="color:var(--muted)">Progress through increasingly independent problem solving.</p>
+<div class="meter"><span id="meter"></span></div>
+<p id="progressText"><b>1 / 3</b> levels selected</p>
+<hr style="border:0;border-top:1px solid var(--line)">
+<h3>Dynamic Hint Generator</h3>
+<p><b>Hint 1:</b> Conceptual nudge</p>
+<p><b>Hint 2:</b> Procedural breakdown</p>
+<p><b>Hint 3:</b> Near-solution scaffolding</p>
+<button class="btn secondary" onclick="nextHint()">Get Progressive Hint</button>
+<div id="dynamicHint" class="hint" style="display:none"></div>
+<hr style="border:0;border-top:1px solid var(--line)">
+<h3>Quick Check</h3>
+<p>What is the discriminant formula?</p>
+<div class="answer"><input id="ans" placeholder="Type your answer"></div>
+<button class="btn" onclick="checkAnswer()">Check</button>
+<div id="feedback" class="feedback"></div>
+</aside>
+</div>
+</main>
+<footer>Quadratic Quest · Differentiated mathematics learning</footer>
+
+<script>
+let current=1, hintStep=0;
+function showLevel(n){
+ current=n;
+ document.querySelectorAll('.level').forEach(x=>x.classList.remove('active'));
+ document.getElementById('level'+n).classList.add('active');
+ document.querySelectorAll('.tab').forEach((x,i)=>x.classList.toggle('active',i===n-1));
+ document.getElementById('meter').style.width=(n/3*100)+'%';
+ document.getElementById('progressText').innerHTML='<b>'+n+' / 3</b> levels selected';
+ hintStep=0; document.getElementById('dynamicHint').style.display='none';
+}
+function hint(n){document.getElementById('hint'+n).style.display='block'}
+function nextHint(){
+ hintStep++;
+ const box=document.getElementById('dynamicHint');
+ box.style.display='block';
+ const hints={
+  1:['Conceptual nudge: For x² − 5x + 6, look for two numbers that multiply to 6 and add to −5.','Procedural breakdown: Write the quadratic as (x + m)(x + n), then use the zero-product property.','Near-solution: The factor pair is −2 and −3. Finish by setting each factor equal to zero.'],
+  2:['Conceptual nudge: The discriminant is the expression under the square root in the quadratic formula.','Procedural breakdown: Compute b² first and 4ac second, then subtract.','Near-solution: With a=2, b=−7, c=3, the discriminant is 25. Substitute it into the formula.'],
+  3:['Conceptual nudge: Area equals width × length. Represent both dimensions using one variable.','Procedural breakdown: If width is x, length is x+4, so x(x+4)=96.','Near-solution: Rearrange to x²+4x−96=0 and factor it. Choose the positive physical dimension.']
+ };
+ box.textContent=hints[current][Math.min(hintStep-1,2)];
+}
+function checkAnswer(){
+ const v=document.getElementById('ans').value.replace(/\s/g,'').toLowerCase();
+ const f=document.getElementById('feedback');
+ if(v==='b^2-4ac'||v==='b²-4ac'||v==='b*b-4*a*c'){f.textContent='Correct! D = b² − 4ac.';f.className='feedback good'}
+ else {f.textContent='Not quite. Remember: square b, then subtract 4ac.';f.className='feedback bad'}
+}
+</script>
+</body>
+</html>
